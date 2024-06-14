@@ -1,6 +1,6 @@
 {
-    "name": "digkill/yookassa-laravel",
-    "description": "YooKassa for Laravel",
+    "name": "idvlab/laravel-yookassa",
+    "description": "Yookassa for Laravel",
     "type": "project",
     "license": "MIT",
     "version": "1.1.4",
@@ -16,7 +16,7 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=8.1",
+        "php": ">=8.2",
         "illuminate/support": "~9|~10",
         "imjonos/laravel-base-service": "*",
         "guzzlehttp/guzzle": "^7.2",
