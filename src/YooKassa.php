@@ -79,7 +79,7 @@ class YooKassa
     {
         if ($orderId === null) {
             // Generate orderId
-            $orderId = Str::uuid();
+            $orderId = Str::uuid()->toString();
         }
 
         if ($currency === null) {
