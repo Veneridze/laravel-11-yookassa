@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedInteger('user_id')->nullable();
             $table->string('payment_id')->unique();
-            $table->string('order_id');
+            $table->uuid('order_id');
             $table->dateTime('paid_at')->nullable();
             $table->string('confirmation_url')->nullable();
             $table->enum('status', ['pending', 'waiting_for_capture', 'succeeded', 'canceled', 'refunded', 'partial_refunded'])->nullable();

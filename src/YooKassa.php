@@ -1,14 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Digkill\YooKassaLaravel;
 
+use Exception;
+use Illuminate\Support\Str;
 use YooKassa\Client;
 use Digkill\YooKassaLaravel\Enums\Currency;
 use Digkill\YooKassaLaravel\Enums\PaymentStatus;
 use Digkill\YooKassaLaravel\Payment\CodesPayment;
 use Digkill\YooKassaLaravel\Payment\CreatePayment;
 use Digkill\YooKassaLaravel\Payment\WebhookPayment;
+use YooKassa\Common\Exceptions\ApiConnectionException;
 use YooKassa\Common\Exceptions\ApiException;
+use YooKassa\Common\Exceptions\AuthorizeException;
 use YooKassa\Common\Exceptions\BadApiRequestException;
 use YooKassa\Common\Exceptions\ExtensionNotFoundException;
 use YooKassa\Common\Exceptions\ForbiddenException;
@@ -60,7 +66,7 @@ class YooKassa
      * @throws ForbiddenException
      * @throws TooManyRequestsException
      * @throws UnauthorizedException
-     * @throws \Exception
+     * @throws Exception
      */
     public function createPayment(float    $amount,
                                   string   $description,
@@ -68,44 +74,36 @@ class YooKassa
                                   int      $userId = null,
                                   string   $currency = null,
                                   bool     $capture = true,
-                                  callable $callback = null): DTO\CreatePaymentResponseDTO
+                                  callable $callback = null,
+                                  array    $additionalMetadata = []): DTO\CreatePaymentResponseDTO
     {
         if ($orderId === null) {
             // Generate orderId
-            $orderId = uniqid('', true);
+            $orderId = Str::uuid();
         }
 
         if ($currency === null) {
             $currency = Currency::RUB->value;
         }
 
-
         // Redirect URI
         if (empty($this->config['redirect_uri'])) {
-            throw new \Exception('Not redirect uri');
+            throw new Exception('Not redirect uri');
         }
 
-        $redirectUriParse = parse_url($this->config['redirect_uri']);
-
-        $redirectUrl = $redirectUriParse['scheme']
-            . '://'
-            . $redirectUriParse['host']
-
-            . $redirectUriParse['path']
-            . '?order_id=' . $orderId;
+        $redirectUrl = "{$this->config['redirect_uri']}?order_id=$orderId";
+        $metadata = array_merge(['order_id' => $orderId,], $additionalMetadata);
 
         $response = $this->client->createPayment([
             'amount' => [
                 'value' => $amount,
-                'currency' => $currency
+                'currency' => $currency,
             ],
             'confirmation' => [
                 'type' => 'redirect',
-                'return_url' => $redirectUrl
+                'return_url' => $redirectUrl,
             ],
-            'metadata' => [
-                'order_id' => $orderId
-            ],
+            'metadata' => $metadata,
             'capture' => $capture,
             'description' => $description,
         ], $orderId);
@@ -116,9 +114,19 @@ class YooKassa
 
         // Create Request
         return (new CreatePayment($response, $orderId, $userId))->get();
-
     }
 
+    /**
+     * @throws ResponseProcessingException
+     * @throws BadApiRequestException
+     * @throws ForbiddenException
+     * @throws TooManyRequestsException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws ApiException
+     * @throws ExtensionNotFoundException
+     * @throws InternalServerError
+     */
     public function checkPayment(string $paymentId, $orderId, $amount, $currency, callable $success, callable $failed = null)
     {
         // Get Payment Info
@@ -159,7 +167,20 @@ class YooKassa
         }
     }
 
-    public function refund($orderId, $paymentid, $amount, $currency = 'RUB'): CreateRefundResponse
+    /**
+     * @throws NotFoundException
+     * @throws ApiException
+     * @throws ResponseProcessingException
+     * @throws BadApiRequestException
+     * @throws ExtensionNotFoundException
+     * @throws AuthorizeException
+     * @throws InternalServerError
+     * @throws ForbiddenException
+     * @throws TooManyRequestsException
+     * @throws ApiConnectionException
+     * @throws UnauthorizedException
+     */
+    public function refund($orderId, $paymentId, $amount, $currency = 'RUB'): CreateRefundResponse
     {
         return $this->client->createRefund(
             array(
@@ -167,13 +188,13 @@ class YooKassa
                     'value' => $amount,
                     'currency' => $currency,
                 ],
-                'payment_id' => $paymentid,
+                'payment_id' => $paymentId,
             ),
             $orderId
         );
     }
 
-    public function webhook()
+    public function webhook(): WebhookPayment
     {
         return new WebhookPayment($this);
     }

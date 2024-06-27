@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Digkill\YooKassaLaravel\Services;
 
 use Digkill\YooKassaLaravel\Enums\PaymentStatus;
 use Digkill\YooKassaLaravel\Models\YookassaPayment;
 use Digkill\YooKassaLaravel\YooKassa;
 use Digkill\YooKassaLaravel\Contracts\Repositories\PaymentRepositoryInterface;
+use Exception;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use YooKassa\Common\Exceptions\ApiConnectionException;
 use YooKassa\Common\Exceptions\ApiException;
 use YooKassa\Common\Exceptions\AuthorizeException;
@@ -17,7 +21,6 @@ use YooKassa\Common\Exceptions\NotFoundException;
 use YooKassa\Common\Exceptions\ResponseProcessingException;
 use YooKassa\Common\Exceptions\TooManyRequestsException;
 use YooKassa\Common\Exceptions\UnauthorizedException;
-use YooKassa\Request\Refunds\CreateRefundResponse;
 
 /**
  * @method PaymentRepositoryInterface getRepository()
@@ -25,10 +28,9 @@ use YooKassa\Request\Refunds\CreateRefundResponse;
 final class PaymentService
 {
     public function __construct(
-        private YooKassa                   $yooKassa,
-        private PaymentRepositoryInterface $paymentRepository,
-    )
-    {
+        private readonly YooKassa                   $yookassa,
+        private readonly PaymentRepositoryInterface $paymentRepository,
+    ) {
     }
 
     /**
@@ -43,17 +45,19 @@ final class PaymentService
      * @throws TooManyRequestsException
      * @throws ApiConnectionException
      * @throws UnauthorizedException
+     * @throws Exception
      */
     public function create(
         float  $amount,
         string $description = '',
-        $orderId = null,
+        string $orderId = null,
         int    $userId = null,
         string $currency = 'RUB',
-        bool   $capture = true
+        bool   $capture = true,
+        array  $additionalMetadata = [],
     ): YookassaPayment
     {
-        $payment = $this->yooKassa->createPayment($amount, $description, $orderId, $userId, $currency, $capture);
+        $payment = $this->yookassa->createPayment($amount, $description, $orderId, $userId, $currency, $capture, $additionalMetadata);
 
         return $this->paymentRepository->create([
             'user_id' => $payment->user_id,
@@ -77,17 +81,30 @@ final class PaymentService
 
     /**
      * @param $orderId
-     * @param $paymentid
+     * @param $paymentId
      * @param $amount
      * @param string $currency
-     * @return CreateRefundResponse
+     * @return YookassaPayment
+     * @throws ApiConnectionException
+     * @throws ApiException
+     * @throws AuthorizeException
+     * @throws BadApiRequestException
+     * @throws ExtensionNotFoundException
+     * @throws ForbiddenException
+     * @throws InternalServerError
+     * @throws NotFoundException
+     * @throws ResponseProcessingException
+     * @throws TooManyRequestsException
+     * @throws UnauthorizedException
+     * @throws BindingResolutionException
+     * @throws Exception
      */
-    public function refund($orderId, $paymentid, $amount, string $currency = 'RUB'): YookassaPayment
+    public function refund($orderId, $paymentId, $amount, string $currency = 'RUB'): YookassaPayment
     {
-        $refund = $this->yooKassa->refund($orderId, $paymentid, $amount, $currency);
+        $refund = $this->yookassa->refund($orderId, $paymentId, $amount, $currency);
 
         if ($refund->getStatus() !== 'succeeded') {
-            throw new \Exception('Can not refund');
+            throw new Exception('Can not refund');
         }
 
         return $this->paymentRepository->refund($refund);
