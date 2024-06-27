@@ -74,8 +74,8 @@ class YooKassa
                                   int      $userId = null,
                                   string   $currency = null,
                                   bool     $capture = true,
-                                  callable $callback = null,
-                                  array    $additionalMetadata = []): DTO\CreatePaymentResponseDTO
+                                  array    $additionalMetadata = [],
+                                  callable $callback = null): DTO\CreatePaymentResponseDTO
     {
         if ($orderId === null) {
             // Generate orderId
