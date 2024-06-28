@@ -1,8 +1,8 @@
 <?php
 
-namespace Digkill\YooKassaLaravel\Facades;
+namespace idvLab\LaravelYookassa\Facades;
 
-use Digkill\YooKassaLaravel\YooKassa;
+use idvLab\LaravelYookassa\YooKassa;
 use Illuminate\Support\Facades\Facade;
 
 class YooKassaFacade extends Facade

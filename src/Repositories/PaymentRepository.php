@@ -1,11 +1,11 @@
 <?php
 
-namespace Digkill\YooKassaLaravel\Repositories;
+namespace idvLab\LaravelYookassa\Repositories;
 
-use Digkill\YooKassaLaravel\Enums\PaymentStatusRefund;
+use idvLab\LaravelYookassa\Enums\PaymentStatusRefund;
 use Exception;
-use Digkill\YooKassaLaravel\Contracts\Repositories\PaymentRepositoryInterface;
-use Digkill\YooKassaLaravel\Models\YookassaPayment;
+use idvLab\LaravelYookassa\Contracts\Repositories\PaymentRepositoryInterface;
+use idvLab\LaravelYookassa\Models\YookassaPayment;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
 use YooKassa\Model\Refund\RefundInterface;

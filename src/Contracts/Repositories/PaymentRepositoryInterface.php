@@ -1,8 +1,8 @@
 <?php
 
-namespace Digkill\YooKassaLaravel\Contracts\Repositories;
+namespace idvLab\LaravelYookassa\Contracts\Repositories;
 
-use Digkill\YooKassaLaravel\Models\YookassaPayment;
+use idvLab\LaravelYookassa\Models\YookassaPayment;
 
 interface PaymentRepositoryInterface
 {

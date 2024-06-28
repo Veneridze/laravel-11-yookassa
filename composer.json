@@ -6,12 +6,12 @@
     "version": "1.1.6",
     "autoload": {
         "psr-4": {
-            "Digkill\\YooKassaLaravel\\": "src/"
+            "idvLab\\LaravelYookassa\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Digkill\\YooKassaLaravel\\Tests\\": "tests"
+            "idvLab\\LaravelYookassa\\Tests\\": "tests"
         }
     },
     "minimum-stability": "dev",
@@ -32,10 +32,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Digkill\\YooKassaLaravel\\YookassaServiceProvider"
+                "idvLab\\LaravelYookassa\\YookassaServiceProvider"
             ],
             "aliases": {
-                "YooKassa": "Digkill\\YooKassaLaravel\\Facades\\YookassaFacade"
+                "YooKassa": "idvLab\\LaravelYookassa\\Facades\\YookassaFacade"
             }
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Digkill\YooKassaLaravel\Enums;
+namespace idvLab\LaravelYookassa\Enums;
 
 enum PaymentStatusRefund: string
 {

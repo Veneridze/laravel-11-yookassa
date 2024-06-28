@@ -1,6 +1,6 @@
 <?php
 
-namespace Digkill\YooKassaLaravel\Http\Requests;
+namespace idvLab\LaravelYookassa\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

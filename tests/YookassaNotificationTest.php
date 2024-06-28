@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use Digkill\YooKassaLaravel\Enums\Currency;
+use idvLab\LaravelYookassa\Enums\Currency;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Digkill\YooKassaLaravel\Models\YookassaPayment;
+use idvLab\LaravelYookassa\Models\YookassaPayment;
 use Tests\TestCase;
 
 final class YookassaNotificationTest extends TestCase

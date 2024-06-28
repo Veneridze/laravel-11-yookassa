@@ -3,7 +3,7 @@
 ## Installing
 
 ```bash
-composer require digkill/yookassa-laravel
+composer require idvlab/laravel-yookassa
 ```
 
 ```bash
@@ -16,16 +16,16 @@ php artisan vendor:publish --tag=yookassa.config
 ```
 
 ```bash
-php artisan vendor:publish --provider=Digkill\YooKassaLaravel\YooKassaServiceProvider
+php artisan vendor:publish --provider=idvLab\LaravelYookassa\YooKassaServiceProvider
 ```
 
 ```php
 // Facade
-use Digkill\YooKassaLaravel\Facades\YooKassaFacade;
+use idvLab\LaravelYookassa\Facades\YooKassaFacade;
 $yookassaPayment = YookassaFacade::createPayment(10000, 'test payment'); 
 
 // Service
-$service = app(Digkill\YooKassaLaravel\Services\PaymentService::class);
+$service = app(idvLab\LaravelYookassa\Services\PaymentService::class);
 $yookassaPayment = $service->createPayment(10000, 'test payment');
 ```
 
@@ -34,7 +34,7 @@ To receive the request you need to add a URL
 
 ![./assets/img.jpg](./assets/img.jpg)
 
-And subscribe to the event Digkill\YooKassaLaravel\Events\YookassaPaymentNotification
+And subscribe to the event idvLab\LaravelYookassa\Events\YookassaPaymentNotification
 
 ```php
 namespace App\Providers;

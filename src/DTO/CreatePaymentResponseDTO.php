@@ -1,6 +1,6 @@
 <?php
 
-namespace Digkill\YooKassaLaravel\DTO;
+namespace idvLab\LaravelYookassa\DTO;
 class CreatePaymentResponseDTO
 {
     public function __construct(

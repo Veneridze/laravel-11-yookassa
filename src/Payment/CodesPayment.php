@@ -1,6 +1,6 @@
 <?php
 
-namespace Digkill\YooKassaLaravel\Payment;
+namespace idvLab\LaravelYookassa\Payment;
 
 class CodesPayment
 {

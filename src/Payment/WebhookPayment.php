@@ -1,10 +1,10 @@
 <?php
 
-namespace Digkill\YooKassaLaravel\Payment;
+namespace idvLab\LaravelYookassa\Payment;
 
 use Exception;
 use YooKassa\Client;
-use Digkill\YooKassaLaravel\YooKassa;
+use idvLab\LaravelYookassa\YooKassa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;

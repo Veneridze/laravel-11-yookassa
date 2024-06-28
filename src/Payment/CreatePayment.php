@@ -1,10 +1,10 @@
 <?php
 
-namespace Digkill\YooKassaLaravel\Payment;
+namespace idvLab\LaravelYookassa\Payment;
 
 use Carbon\Carbon;
 
-use Digkill\YooKassaLaravel\DTO\CreatePaymentResponseDTO;
+use idvLab\LaravelYookassa\DTO\CreatePaymentResponseDTO;
 use YooKassa\Request\Payments\CreatePaymentResponse;
 
 class CreatePayment

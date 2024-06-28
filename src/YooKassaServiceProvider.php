@@ -1,10 +1,10 @@
 <?php
 
-namespace Digkill\YooKassaLaravel;
+namespace idvLab\LaravelYookassa;
 
-use Digkill\YooKassaLaravel\Contracts\Repositories\PaymentRepositoryInterface;
-use Digkill\YooKassaLaravel\Repositories\PaymentRepository;
-use Digkill\YooKassaLaravel\Services\PaymentService;
+use idvLab\LaravelYookassa\Contracts\Repositories\PaymentRepositoryInterface;
+use idvLab\LaravelYookassa\Repositories\PaymentRepository;
+use idvLab\LaravelYookassa\Services\PaymentService;
 use Illuminate\Support\ServiceProvider;
 use YooKassa\Client;
 
@@ -17,7 +17,7 @@ class YooKassaServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'Digkill\\YooKassaLaravel');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'idvLab\\LaravelYookassa');
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
 

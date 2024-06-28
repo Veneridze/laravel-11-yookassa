@@ -1,13 +1,13 @@
 <?php
 
-namespace Digkill\YooKassaLaravel\Http\Controllers;
+namespace idvLab\LaravelYookassa\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Digkill\YooKassaLaravel\Enums\PaymentStatus;
-use Digkill\YooKassaLaravel\Events\YookassaPaymentNotification;
-use Digkill\YooKassaLaravel\Http\Requests\NotificationRequest;
-use Digkill\YooKassaLaravel\Services\PaymentService;
+use idvLab\LaravelYookassa\Enums\PaymentStatus;
+use idvLab\LaravelYookassa\Events\YookassaPaymentNotification;
+use idvLab\LaravelYookassa\Http\Requests\NotificationRequest;
+use idvLab\LaravelYookassa\Services\PaymentService;
 use YooKassa\Model\Notification\NotificationCanceled;
 use YooKassa\Model\Notification\NotificationEventType;
 use YooKassa\Model\Notification\NotificationSucceeded;

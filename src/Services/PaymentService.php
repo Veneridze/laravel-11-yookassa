@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Digkill\YooKassaLaravel\Services;
+namespace idvLab\LaravelYookassa\Services;
 
-use Digkill\YooKassaLaravel\Enums\PaymentStatus;
-use Digkill\YooKassaLaravel\Models\YookassaPayment;
-use Digkill\YooKassaLaravel\YooKassa;
-use Digkill\YooKassaLaravel\Contracts\Repositories\PaymentRepositoryInterface;
+use idvLab\LaravelYookassa\Enums\PaymentStatus;
+use idvLab\LaravelYookassa\Models\YookassaPayment;
+use idvLab\LaravelYookassa\YooKassa;
+use idvLab\LaravelYookassa\Contracts\Repositories\PaymentRepositoryInterface;
 use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use YooKassa\Common\Exceptions\ApiConnectionException;

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Digkill\YooKassaLaravel;
+namespace idvLab\LaravelYookassa;
 
 use Exception;
 use Illuminate\Support\Str;
 use YooKassa\Client;
-use Digkill\YooKassaLaravel\Enums\Currency;
-use Digkill\YooKassaLaravel\Enums\PaymentStatus;
-use Digkill\YooKassaLaravel\Payment\CodesPayment;
-use Digkill\YooKassaLaravel\Payment\CreatePayment;
-use Digkill\YooKassaLaravel\Payment\WebhookPayment;
+use idvLab\LaravelYookassa\Enums\Currency;
+use idvLab\LaravelYookassa\Enums\PaymentStatus;
+use idvLab\LaravelYookassa\Payment\CodesPayment;
+use idvLab\LaravelYookassa\Payment\CreatePayment;
+use idvLab\LaravelYookassa\Payment\WebhookPayment;
 use YooKassa\Common\Exceptions\ApiConnectionException;
 use YooKassa\Common\Exceptions\ApiException;
 use YooKassa\Common\Exceptions\AuthorizeException;

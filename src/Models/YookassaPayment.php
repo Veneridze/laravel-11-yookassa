@@ -1,6 +1,6 @@
 <?php
 
-namespace Digkill\YooKassaLaravel\Models;
+namespace idvLab\LaravelYookassa\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

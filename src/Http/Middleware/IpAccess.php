@@ -1,6 +1,6 @@
 <?php
 
-namespace Digkill\YooKassaLaravel\Http\Middleware;
+namespace idvLab\LaravelYookassa\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

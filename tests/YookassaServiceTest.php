@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use Digkill\YooKassaLaravel\Repositories\PaymentRepository;
-use Digkill\YooKassaLaravel\Services\PaymentService;
-use Digkill\YooKassaLaravel\YooKassa;
+use idvLab\LaravelYookassa\Repositories\PaymentRepository;
+use idvLab\LaravelYookassa\Services\PaymentService;
+use idvLab\LaravelYookassa\YooKassa;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use Tests\TestCase;
