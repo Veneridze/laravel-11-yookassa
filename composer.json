@@ -14,14 +14,13 @@
             "idvLab\\LaravelYookassa\\Tests\\": "tests"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=8.2",
-        "illuminate/support": "~9|~10",
-        "imjonos/laravel-base-service": "*",
-        "guzzlehttp/guzzle": "^7.2",
-        "yoomoney/yookassa-sdk-php": "^3.2",
-        "ext-json": "*"
+        "ext-json": "*",
+        "illuminate/support": "^11.34",
+        "guzzlehttp/guzzle": "^7.9",
+        "yoomoney/yookassa-sdk-php": "^3.7"
     },
     "authors": [
         {
