@@ -14,7 +14,7 @@
             "idvLab\\LaravelYookassa\\Tests\\": "tests"
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=8.2",
         "ext-json": "*",
