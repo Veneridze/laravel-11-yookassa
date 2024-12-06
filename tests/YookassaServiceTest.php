@@ -25,7 +25,7 @@ final class YookassaServiceTest extends TestCase
             app(PaymentRepository::class),
         );
 
-        $model = $paymentService->create(500, 'test test', '12340000', 20, 'RUB', true);
+        $model = $paymentService->create( 20,500, '12340000', 'test test', 'RUB', true);
         $this->assertNotEmpty($model);
     }
 }

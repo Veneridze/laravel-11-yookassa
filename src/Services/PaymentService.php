@@ -48,10 +48,10 @@ final class PaymentService
      * @throws Exception
      */
     public function create(
+        int    $userId,
+        string $orderId,
         float  $amount,
         string $description = '',
-        string $orderId = null,
-        int    $userId = null,
         string $currency = 'RUB',
         bool   $capture = true,
         array  $additionalMetadata = [],
