@@ -21,7 +21,7 @@ class YooKassaServiceProvider extends PackageServiceProvider
             ->hasTranslations()
             //->hasConfigFile()
             ->hasMigrations([
-                'create_yookassa_payments.php',
+                'create_yookassa_payments',
             ])
             ->publishesServiceProvider('YooKassaServiceProvider')
             ->hasInstallCommand(function(InstallCommand $command) {

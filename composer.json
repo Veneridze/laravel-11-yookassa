@@ -14,6 +14,13 @@
             "idvLab\\LaravelYookassa\\Tests\\": "tests"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "idvLab\\LaravelYookassa\\YooKassaServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "dev",
     "require": {
         "php": ">=8.2",
