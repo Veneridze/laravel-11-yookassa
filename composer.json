@@ -21,7 +21,7 @@
         "illuminate/support": "^11.34",
         "guzzlehttp/guzzle": "^7.9",
         "yoomoney/yookassa-sdk-php": "^3.7",
-        "spatie/laravel-package-tools": "dev-main"
+        "spatie/laravel-package-tools": "^1.16"
     },
     "authors": [
         {
