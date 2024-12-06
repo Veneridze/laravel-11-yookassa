@@ -1,60 +1,53 @@
 <?php
-
 namespace idvLab\LaravelYookassa;
-
 use idvLab\LaravelYookassa\Contracts\Repositories\PaymentRepositoryInterface;
 use idvLab\LaravelYookassa\Repositories\PaymentRepository;
 use idvLab\LaravelYookassa\Services\PaymentService;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use YooKassa\Client;
 
-/**
- * Bootstrap any package services.
- *
- * @return void
- */
-class YooKassaServiceProvider extends ServiceProvider
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
+
+class YooKassaServiceProvider extends PackageServiceProvider
 {
-    public function boot()
+    public function configurePackage(Package $package): void
     {
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'idvLab\\LaravelYookassa');
-
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-
-        if ($this->app->runningInConsole()) {
-            $this->bootForConsole();
-        }
-
-        $this->publishes([
-            __DIR__ . '/../config/yookassa.php' => config_path('yookassa.php'),
-            __DIR__ . '/../resources/lang' => resource_path('yookassa.php'),
-        ]);
+        $package
+            ->name('laravel-11-yookassa')
+            ->hasRoute('yookassa')
+            ->hasTranslations()
+            //->hasConfigFile()
+            ->hasMigrations([
+                'create_yookassa_payments.php',
+            ])
+            ->publishesServiceProvider('YooKassaServiceProvider')
+            ->hasInstallCommand(function(InstallCommand $command) {
+                $command
+                    ->publishConfigFile()
+                    ->publishAssets()
+                    ->publishMigrations()
+                    ->copyAndRegisterServiceProviderInApp();
+            });
     }
 
-    /**
-     * Console-specific booting.
+    public function packageBooted(): void
+    {
+        
+    }/**
+     * Get the services provided by the provider.
      *
-     * @return void
+     * @return array
      */
-    protected function bootForConsole(): void
+    public function provides(): array
     {
-        // Publishing the configuration file.
-        $this->publishes([
-            __DIR__ . '/../config/yookassa.php' => config_path('yookassa.php'),
-        ], 'yookassa.config');
-
-        // Publishing migrations
-        $this->publishes([
-            __DIR__ . '/../database/migrations' => base_path('database/migrations'),
-        ], 'yookassa.migrations');
+        return ['yookassa'];
     }
 
-    public function register()
+    public function packageRegistered(): void
     {
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/yookassa.php', 'yookassa'
-        );
-
         $this->app->bind(PaymentRepositoryInterface::class, PaymentRepository::class);
 
         $this->app->bind(Client::class, function () {
@@ -64,27 +57,16 @@ class YooKassaServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('Yookassa', function () {
-            return new Yookassa(app(PaymentService::class));
+            return new Yookassa(App::make(PaymentService::class));
         });
 
         $this->app->bind(YooKassa::class);
 
         $this->app->bind(PaymentService::class, function () {
             return new PaymentService(
-                app(YooKassa::class),
-                app(PaymentRepositoryInterface::class),
+                App::make(YooKassa::class),
+                App::make(PaymentRepositoryInterface::class),
             );
         });
-
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides(): array
-    {
-        return ['yookassa'];
     }
 }

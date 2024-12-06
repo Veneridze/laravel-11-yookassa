@@ -20,7 +20,9 @@
         "ext-json": "*",
         "illuminate/support": "^11.34",
         "guzzlehttp/guzzle": "^7.9",
-        "yoomoney/yookassa-sdk-php": "^3.7"
+        "yoomoney/yookassa-sdk-php": "^3.7",
+        "spatie/laravel-package-tools": "dev-main",
+        "laravel/framework": "11.x-dev"
     },
     "authors": [
         {
